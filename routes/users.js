@@ -32,9 +32,37 @@ router.get('/orders', (req, res) => {
     });
 });
 
+router.get("/orderItems/:OrderNumber/", (req, res, next) => {
+    req.OrderNumber = req.params.OrderNumber;
+    console.log("here")
+    OrderItem.getOrderItems(req.params.OrderNumber,
+        (err, data) => {
+            if(err){
+                res.send(util.Failure(err));
+            }
+            else {
+                let ans = data;
+                for (let i=0; i<data.length; i++){
+                    ItemMaster.get(data[i]['OrderItem'], (err, DATA) => {
+                        if(err){
+                            res.send(util.Failure(err));
+                        }
+                        else {
+                            ans[i]['OrderItem']['Item'] = DATA;
+                        }
+                    });
+                    if(i === data.length - 1){
+                        res.send(util.Success(ans));
+                    }
+                }
+            }
+        }
+    );
+})
+
 router.get("/orders/:OrderNumber",
     (req, res) => {
-        OrderItem.getOrderItems(req.params.OrderNumber,
+        OrderItem.getOrderItems(req.OrderNumber,
             (err, data) => {
                 if(err){
                     res.send(util.Failure(err));
