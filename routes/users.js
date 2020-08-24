@@ -47,7 +47,7 @@ router.get("/orders/:OrderNumber",
     }
 );
 
-router.get('/:OrderNumber/items',
+router.get('/orders/:OrderNumber/items',
     (req, res) => {
         OrderItem.getOrderItems(req.params.OrderNumber,
             (err, data) => {

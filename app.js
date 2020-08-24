@@ -30,8 +30,8 @@ app.use("/api", jwt.validate);
 
 app.use("/", indexRouter);
 app.use("/auth/", authRouter);
-app.use("/users", usersRouter);
-app.use("/items", ItemRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/items", ItemRouter);
 
 
 // catch 404 and forward to error handler
