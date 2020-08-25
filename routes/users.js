@@ -51,12 +51,12 @@ router.get("/orderedItems/", (req, res) => {
                                     res.send(util.Failure(err));
                                 }
                                 else {
-                                    ans[i]['OrderItem']['Item'] = DATA;
+                                    ans[i]['OrderItem'] = DATA;
+                                }
+                                if(i === data.length - 1){
+                                    res.send(util.Success(ans));
                                 }
                             });
-                            if(i === data.length - 1){
-                                res.send(util.Success(ans));
-                            }
                         }
                     }
                 }
@@ -81,12 +81,12 @@ router.get("/orderItems/:OrderNumber/", (req, res, next) => {
                             res.send(util.Failure(err));
                         }
                         else {
-                            ans[i]['OrderItem']['Item'] = DATA;
+                            ans[i]['OrderItem'] = DATA;
+                        }
+                        if(i === data.length - 1){
+                            res.send(util.Success(ans));
                         }
                     });
-                    if(i === data.length - 1){
-                        res.send(util.Success(ans));
-                    }
                 }
             }
         }
